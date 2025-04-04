@@ -3,7 +3,9 @@
 //
 #include <bits/stdc++.h>
 
-int clc_win() {
-    printf("hello clc \n");
-    return 0;
+namespace clc {
+    int win() {
+        printf("hello clc \n");
+        return 0;
+    }
 }

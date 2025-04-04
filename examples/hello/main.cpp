@@ -1,9 +1,8 @@
 //
 // Created by Lontten on 2025/4/2.
 //
-#include <clc_win.h>
-
+#include <clc/win.h>
 int main() {
-    clc_win();
+    clc::win();
     return 0;
 }
