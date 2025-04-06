@@ -7,6 +7,6 @@
 
 
 int win_other() {
-    printf("窗口 linux 未实现\n");
+    printf("窗口 other 未实现\n");
     return 0;
 }
