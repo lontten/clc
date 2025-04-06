@@ -4,4 +4,6 @@
 #pragma once
 namespace clc {
     int win();
+
+    typedef int WinId;
 }

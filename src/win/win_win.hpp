@@ -111,13 +111,15 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg,
     }
 }
 
-int win_win() {
-    // 获取当前实例句柄
-    HINSTANCE hInstance = GetModuleHandle(nullptr);
+namespace clc {
+    int win_win() {
+        // 获取当前实例句柄
+        HINSTANCE hInstance = GetModuleHandle(nullptr);
 
-    // 获取命令行参数（Unicode 格式）
-    PWSTR pCmdLine = GetCommandLineW();
+        // 获取命令行参数（Unicode 格式）
+        PWSTR pCmdLine = GetCommandLineW();
 
-    // 调用 wWinMain
-    return wWinMain(hInstance, nullptr, pCmdLine, SW_SHOW);
+        // 调用 wWinMain
+        return wWinMain(hInstance, nullptr, pCmdLine, SW_SHOW);
+    }
 }

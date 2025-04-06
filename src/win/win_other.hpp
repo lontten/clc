@@ -5,8 +5,9 @@
 #pragma once
 #include <cstdio>
 
-
-int win_other() {
-    printf("窗口 other 未实现\n");
-    return 0;
+namespace clc {
+    int win_other() {
+        printf("平台\n");
+        return 0;
+    }
 }

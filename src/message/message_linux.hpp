@@ -6,7 +6,8 @@
 #include <cstdio>
 
 namespace clc {
-    int win_linux() {
+    int message_linux(const std::string &title, const std::string &content,
+                      const MessageType type, const WinId pid) {
         printf("linux 未实现\n");
         return 0;
     }

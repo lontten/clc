@@ -6,7 +6,8 @@
 #include <cstdio>
 
 namespace clc {
-    int win_mac() {
+    int message_mac(const std::string &title, const std::string &content,
+                    const MessageType type, const WinId pid) {
         printf("mac 未实现\n");
         return 0;
     }
