@@ -6,7 +6,7 @@
 #include <cstdio>
 
 namespace clc {
-    int win_other() {
+    int win_other(const std::string &title) {
         printf("平台\n");
         return 0;
     }

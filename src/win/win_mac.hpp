@@ -6,7 +6,7 @@
 #include <cstdio>
 
 namespace clc {
-    int win_mac() {
+    int win_mac(const std::string &title) {
         printf("mac 未实现\n");
         return 0;
     }

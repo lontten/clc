@@ -11,6 +11,8 @@
 
 #include <windows.h>  // 包含Windows API核心头文件
 
+#include "clc/utils/string.h"
+
 /* 窗口过程函数声明
  * hwnd    : 窗口句柄
  * uMsg    : 消息类型（如鼠标点击、键盘输入等）
@@ -26,31 +28,25 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
 int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
                     PWSTR pCmdLine, int nCmdShow) {
     // ================== 1. 注册窗口类 ==================
-    const wchar_t CLASS_NAME[] = L"BlankWindowClass"; // 窗口类唯一标识
+    const wchar_t CLASS_NAME[] = L"Sample Window Class"; // 窗口类唯一标识
 
     WNDCLASS wc = {};
     wc.lpfnWndProc = WindowProc; // 设置消息处理回调函数
     wc.hInstance = hInstance; // 绑定当前实例
     wc.lpszClassName = CLASS_NAME; // 指定类名称
-    wc.hbrBackground = (HBRUSH) (COLOR_WINDOW + 1); // 窗口背景色（系统默认白色）
-    wc.style = CS_HREDRAW | CS_VREDRAW; // 窗口尺寸变化时重绘
 
-    // 注册窗口类（失败则弹出错误框）
-    if (!RegisterClass(&wc)) {
-        MessageBox(nullptr, L"窗口类注册失败", L"致命错误", MB_ICONERROR | MB_OK);
-        return 1;
-    }
+    // 注册窗口类
+    RegisterClass(&wc);
 
     // ================== 2. 创建窗口实例 ==================
     HWND hwnd = CreateWindowEx(
         0, // 扩展样式（无特殊需求）
         CLASS_NAME, // 已注册的窗口类名
-        L"空白窗口示例", // 标题栏文字
+        pCmdLine, // 标题栏文字;这里先用 pCmdLine传递窗口标题名字
         WS_OVERLAPPEDWINDOW, // 标准窗口样式（含标题栏/缩放按钮等）
 
         // 初始位置和尺寸（使用系统默认值）
-        CW_USEDEFAULT, CW_USEDEFAULT,
-        800, 600, // 窗口初始宽度和高度
+        CW_USEDEFAULT, CW_USEDEFAULT, CW_USEDEFAULT, CW_USEDEFAULT,
 
         nullptr, // 父窗口句柄（无父窗口）
         nullptr, // 菜单句柄（无菜单）
@@ -60,13 +56,11 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 
     // 检查窗口创建是否成功
     if (hwnd == nullptr) {
-        MessageBox(nullptr, L"窗口创建失败", L"致命错误", MB_ICONERROR | MB_OK);
-        return 1;
+        return 0;
     }
 
     // ================== 3. 显示与更新窗口 ==================
     ShowWindow(hwnd, nCmdShow); // 根据启动参数显示窗口
-    UpdateWindow(hwnd); // 强制立即重绘窗口
 
     // ================== 4. 消息处理循环 ==================
     MSG msg = {};
@@ -112,12 +106,13 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg,
 }
 
 namespace clc {
-    int win_win() {
+    int win_win(const std::string &title) {
         // 获取当前实例句柄
         HINSTANCE hInstance = GetModuleHandle(nullptr);
 
+        auto s = utils::utf8_to_wstring(title);
         // 获取命令行参数（Unicode 格式）
-        PWSTR pCmdLine = GetCommandLineW();
+        PWSTR pCmdLine = const_cast<PWSTR>(s.c_str());
 
         // 调用 wWinMain
         return wWinMain(hInstance, nullptr, pCmdLine, SW_SHOW);

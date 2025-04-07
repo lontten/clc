@@ -6,7 +6,7 @@
 #include <cstdio>
 
 namespace clc {
-    int win_linux() {
+    int win_linux(const std::string &title) {
         printf("linux 未实现\n");
         return 0;
     }

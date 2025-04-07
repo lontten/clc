@@ -12,7 +12,7 @@
 #include "win_other.hpp"
 
 namespace clc {
-    int win() {
-        return PLATFORM_CALL(win);
+    int win(const std::string &title) {
+        return PLATFORM_CALL(win, title);
     }
 }

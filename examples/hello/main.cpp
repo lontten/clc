@@ -5,7 +5,7 @@
 #include <clc/message.h>
 
 int main() {
-    clc::win();
+    clc::win("一个clc 空白窗口");
     message("标题", "内容", clc::MessageType::Help);
     return 0;
 }
