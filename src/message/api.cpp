@@ -13,7 +13,7 @@
 
 namespace clc {
     int message(const std::string &title, const std::string &content,
-                const MessageType type, const WinId pid) {
-        return PLATFORM_CALL(message, title, content, type, pid);
+                const MessageType type, const WinId pid, const LangType lang) {
+        return PLATFORM_CALL(message, title, content, type, pid, lang);
     }
 }

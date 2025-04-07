@@ -7,7 +7,7 @@
 
 namespace clc {
     int message_other(const std::string &title, const std::string &content,
-                      const MessageType type, const WinId pid) {
+                      const MessageType type, const WinId pid, const LangType lang) {
         printf("未知平台\n");
         return 0;
     }

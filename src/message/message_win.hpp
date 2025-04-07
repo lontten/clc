@@ -24,7 +24,7 @@ namespace clc {
     // RetryCancel = 0x00000005L, // 重试/取消双按钮
     // YesNo = 0x00000004L, // 是/否双按钮
     // YesNoCancel = 0x00000003L // 是/否/取消三按钮
-    constexpr UINT messageType(const MessageType type) {
+    constexpr UINT messageTypeConvertToPlatform(const MessageType type) {
         switch (type) {
             case MessageType::AbortRetryIgnore: return MB_ABORTRETRYIGNORE;
             case MessageType::Help: return MB_HELP;
@@ -37,15 +37,25 @@ namespace clc {
         }
     }
 
+    constexpr UINT langConvertToPlatform(const LangType lang) {
+        switch (lang) {
+            case LangType::AUTO: return 0;
+            case LangType::ENGLISH_US: return MAKELANGID(LANG_ENGLISH, SUBLANG_ENGLISH_US);
+            case LangType::CHINESE_SIMPLIFIED: return MAKELANGID(LANG_CHINESE, SUBLANG_CHINESE_SIMPLIFIED);
+            default: return 0;
+        }
+    }
+
     inline int message_win(const std::string &title, const std::string &content,
-                           const MessageType type, const WinId pid) {
+                           const MessageType type, const WinId pid, const LangType lang) {
         const auto title1 = utils::utf8_to_wstring(title);
         const auto content1 = utils::utf8_to_wstring(content);
         const auto title2 = title1.c_str();
         const auto content2 = content1.c_str();
-        const auto t = messageType(type);
-        MessageBoxW(nullptr, content2, title2, t);
-        MessageBoxExW(nullptr, content2, title2, t, 0);
+        const auto t = messageTypeConvertToPlatform(type);
+        const auto l = langConvertToPlatform(lang);
+
+        MessageBoxExW(nullptr, content2, title2, t, l);
         return 0;
     }
 }

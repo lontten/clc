@@ -17,6 +17,12 @@ namespace clc {
         YesNoCancel, // 是/否/取消三按钮
     };
 
+    enum class LangType {
+        AUTO, // 自动检测语言
+        ENGLISH_US, // 美式英语
+        CHINESE_SIMPLIFIED, // 简体中文
+    };
+
     int message(const std::string &title, const std::string &content,
-                MessageType type = MessageType::Ok, WinId pid = 0);
+                MessageType type = MessageType::Ok, WinId pid = 0, LangType lang = LangType::AUTO);
 }
