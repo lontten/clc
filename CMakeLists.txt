@@ -1,10 +1,10 @@
 cmake_minimum_required(VERSION 3.30)
-project(clc)
+project(clc LANGUAGES CXX)
 
 set(CMAKE_CXX_STANDARD 20)
 
-# 设置全局包含目录
-include_directories(${CMAKE_SOURCE_DIR}/include)
+# 设置全局include目录
+include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include)
 
 # 添加 GUI 库目录
 add_subdirectory(src)
