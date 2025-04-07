@@ -46,8 +46,12 @@ namespace clc {
         }
     }
 
-    inline int message_win(const std::string &title, const std::string &content,
-                           const MessageType type, const WinId pid, const LangType lang) {
+    inline MessageSelectType message_win(
+        const std::string &title, const std::string &content,
+        const MessageType type,
+        const WinId pid,
+        const LangType lang
+    ) {
         const auto title1 = utils::utf8_to_wstring(title);
         const auto content1 = utils::utf8_to_wstring(content);
         const auto title2 = title1.c_str();
@@ -55,7 +59,18 @@ namespace clc {
         const auto t = messageTypeConvertToPlatform(type);
         const auto l = langConvertToPlatform(lang);
 
-        MessageBoxExW(nullptr, content2, title2, t, l);
-        return 0;
+        const auto ret = MessageBoxExW(nullptr, content2, title2, t, l);
+        switch (ret) {
+            case IDABORT: return MessageSelectType::Abort;
+            case IDCANCEL: return MessageSelectType::Cancel;
+            case IDCONTINUE: return MessageSelectType::Continue;
+            case IDIGNORE: return MessageSelectType::Ignore;
+            case IDNO: return MessageSelectType::No;
+            case IDOK: return MessageSelectType::OK;
+            case IDRETRY: return MessageSelectType::Retry;
+            case IDTRYAGAIN: return MessageSelectType::TryAgain;
+            case IDYES: return MessageSelectType::Yes;
+            default: return MessageSelectType::OK;
+        }
     }
 }

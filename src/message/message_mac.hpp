@@ -6,9 +6,13 @@
 #include <cstdio>
 
 namespace clc {
-    int message_mac(const std::string &title, const std::string &content,
-                    const MessageType type, const WinId pid, const LangType lang) {
+    MessageSelectType message_mac(
+        const std::string &title, const std::string &content,
+        const MessageType type,
+        const WinId pid,
+        const LangType lang
+    ) {
         printf("mac 未实现\n");
-        return 0;
+        return MessageSelectType::OK;
     }
 }
