@@ -8,6 +8,5 @@
 #include <stdexcept>
 
 namespace clc::utils {
-    typedef unsigned long st;
     std::wstring utf8_to_wstring(const std::string &utf8_str);
 }
