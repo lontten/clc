@@ -11,7 +11,7 @@
 
 #include <windows.h>  // 包含Windows API核心头文件
 
-#include "clc/utils/string.h"
+#include "utils/string.h"
 
 /* 窗口过程函数声明
  * hwnd    : 窗口句柄
