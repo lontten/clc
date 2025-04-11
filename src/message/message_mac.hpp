@@ -5,7 +5,7 @@
 #pragma once
 #include <cstdio>
 
-namespace clc {
+namespace clc::platform {
     MessageSelectType message_mac(
         const std::string &title, const std::string &content,
         const MessageType type,

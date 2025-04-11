@@ -105,7 +105,7 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg,
     }
 }
 
-namespace clc {
+namespace clc::platform {
     int win_win(const std::string &title) {
         // 获取当前实例句柄
         HINSTANCE hInstance = GetModuleHandle(nullptr);

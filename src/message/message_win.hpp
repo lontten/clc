@@ -16,7 +16,7 @@
 #include "clc/win.h"
 #include "utils/string.h"
 
-namespace clc {
+namespace clc::platform {
     // AbortRetryIgnore = 0x00000002L, // 包含三个按钮：中止/重试/忽略
     // Help = 0x00004000L, // 添加帮助按钮，触发 WM_HELP 消息
     // Ok = 0x00000000L, // 默认单按钮：确定

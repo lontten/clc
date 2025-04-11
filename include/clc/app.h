@@ -20,7 +20,7 @@ namespace clc {
 #define CONCAT_EXPAND(a, b) CONCAT(a, b)
 
     // 最终的功能宏（支持可变参数）
-#define PLATFORM_CALL(name, ...) CONCAT_EXPAND(name##_, OS_NAME)(__VA_ARGS__)
+#define PLATFORM_CALL(name, ...) CONCAT_EXPAND(platform::name##_, OS_NAME)(__VA_ARGS__)
 
 
     int app();
