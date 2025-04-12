@@ -10,6 +10,7 @@
 #endif
 
 #include <windows.h>  // 包含Windows API核心头文件
+#include <vector>
 
 #include "clc/sys.h"
 
@@ -83,5 +84,45 @@ namespace clc::platform {
             .battery_percentage = status.BatteryLifePercent,
             .power_status = PowerStatus::OnBattery
         };
+    }
+
+
+    // 获取磁盘信息
+    std::vector<DiskInfo> GetDiskInfo_win() {
+        std::vector<DiskInfo> disks;
+        // 获取所有逻辑驱动器
+        char drives[256];
+        if (GetLogicalDriveStringsA(256, drives)) {
+            for (char *drive = drives; *drive; drive += strlen(drive) + 1) {
+                if (GetDriveTypeA(drive) == DRIVE_FIXED) {
+                    // 只处理固定磁盘
+                    DiskInfo info;
+                    info.drive = drive;
+
+                    // 获取磁盘空间
+                    ULARGE_INTEGER total, free;
+                    if (GetDiskFreeSpaceExA(drive, nullptr, &total, &free)) {
+                        info.total = total.QuadPart;
+                        info.free = free.QuadPart;
+                        disks.push_back(info);
+                    }
+                }
+            }
+        }
+        return disks;
+    }
+
+
+    // 获取内存信息
+    MemoryInfo GetMemoryInfo_win() {
+        MemoryInfo info{};
+        MEMORYSTATUSEX status;
+        status.dwLength = sizeof(status);
+        if (GlobalMemoryStatusEx(&status)) {
+            info.total = status.ullTotalPhys;
+            info.available = status.ullAvailPhys;
+            info.usagePercent = status.dwMemoryLoad;
+        }
+        return info;
     }
 }
