@@ -1,12 +1,14 @@
 add_subdirectory(utils)
 add_subdirectory(win)
 add_subdirectory(message)
+add_subdirectory(sys)
 add_library(clc STATIC app.cpp)
 target_link_libraries(clc
         PRIVATE
         utils_lib
         win_lib
         message_lib
+        sys_lib
 )
 target_include_directories(clc
         PUBLIC
